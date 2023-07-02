@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="wordle.ico" type="image/x-icon" />
     <script src="script.js" defer></script>
     <title>Wordle</title>
   </head>
   <body>
-    <header>
+    <header>Wordle</header>
+    <div class="top-section">
       <div class="score-board">
         <div data-score></div>
         <div class="tooltip-icon">?</div>
@@ -21,9 +23,8 @@
           </ul>
         </div>
       </div>
-      Wordle
       <button data-key="Restart">Restart</button>
-    </header>
+    </div>
     <div class="alert-container"></div>
     <div class="game-board">
       <div class="board"></div>

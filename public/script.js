@@ -14842,7 +14842,7 @@ function handleKeydown(e) {
 
 function handleClick(e) {
   const key = e.target.dataset.key;
-
+  console.log(key);
   if (!key) return;
   if (key.match(/^[a-z]$/i)) enterLetter(key.toLowerCase());
   if (key === "Backspace") deleteLetter();
@@ -15014,8 +15014,6 @@ function restartGame() {
   while (alertContainer.hasChildNodes()) alertContainer.firstChild.remove();
 
   targetWord = targetWords[Math.floor(Math.random() * targetWords.length)];
-  console.log(targetWord);
 }
 
 startInteration();
-console.log(targetWord);

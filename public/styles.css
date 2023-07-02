@@ -1,8 +1,4 @@
 body {
-  font-family: sans-serif;
-}
-
-body {
   margin: 0;
   padding: 0;
   font-family: Arial;
@@ -13,27 +9,27 @@ body {
 }
 
 header {
-  width: 100vw;
-  align-items: center;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  font-size: 2em;
+  width: 100vw;
+  height: 1.5em;
+  font-size: min(2em, 8vmin);
   padding: 0.5em 0;
   border-bottom: 1px solid #3a3a3c;
 }
 
-header .score-board {
+.score-board {
   display: flex;
   position: absolute;
-  left: 10vw;
+  left: calc(4vw + (100vw - 500px) * 0.06);
   font-size: 0.8em;
   letter-spacing: 0.5px;
   place-items: center;
   gap: 0.5em;
 }
 
-header .score-board .tooltip-icon {
+.score-board .tooltip-icon {
   display: flex;
   place-content: center;
   border: 1px solid;
@@ -43,7 +39,7 @@ header .score-board .tooltip-icon {
   font-size: 0.5em;
 }
 
-header .score-board .tooltip-pointer {
+.score-board .tooltip-pointer {
   height: 0.4em;
   width: 0.4em;
   border-top: 1px solid;
@@ -51,20 +47,24 @@ header .score-board .tooltip-pointer {
   position: absolute;
   transform: translate(-50%, 150%) rotate(-45deg);
   background: black;
-  z-index: 2;
 }
 
-header .score-board .tooltip-dialog {
+.score-board .tooltip-dialog {
+  display: none;
   transform: translate(10px, 15px);
   opacity: 0;
   background: rgb(0 0 0);
+  z-index: 3;
+  width: 45vw;
+  max-width: fit-content;
 }
 
-header .score-board .tooltip-icon:hover + .tooltip-dialog {
+.score-board .tooltip-icon:hover + .tooltip-dialog {
+  display: block;
   opacity: 1;
 }
 
-header .score-board ul {
+.score-board ul {
   display: flex;
   font-size: 0.5em;
   gap: 1em;
@@ -75,11 +75,11 @@ header .score-board ul {
   border-radius: 2px;
 }
 
-header button {
+.top-section button {
   position: absolute;
-  right: 10%;
+  right: calc(4vw + (100vw - 500px) * 0.06);
   color: rgb(0 0 0);
-  padding: 0.5em 1.5em;
+  padding: 0.6em 1.7em;
   border-radius: 0.2em;
   font-size: 0.5em;
   font-weight: 600;
@@ -87,10 +87,7 @@ header button {
     linear-gradient(30deg, #34a853 40%, #fbbc05 0);
   transition: scale 250ms;
   cursor: pointer;
-}
-
-header button:is(:hover, :focus-visible) {
-  scale: 1.15;
+  z-index: 2;
 }
 
 button {
@@ -99,11 +96,28 @@ button {
   cursor: pointer;
 }
 
+.top-section {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 1.5em;
+  font-size: 2em;
+  color: rgb(225, 225, 225);
+  position: absolute;
+  top: 0;
+  padding: 0.5em 0;
+}
+
 .game-board {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3em;
+  margin-bottom: min(11vmin, 200px);
+  position: absolute;
+  height: -webkit-fill-available;
+  width: 100%;
+  gap: 11vh;
+  margin-top: 7vh;
 }
 
 .game-board .keyboard {
@@ -111,7 +125,7 @@ button {
   grid-template-columns: repeat(20, 1.25em);
   grid-auto-rows: 3em;
   gap: 0.4em;
-  font-size: 0.8em;
+  font-size: 1.7vmin;
 }
 
 .game-board .keyboard .key {
@@ -150,18 +164,17 @@ button {
 
 .game-board .board {
   display: grid;
-  grid-template-columns: repeat(5, 3em);
-  grid-template-rows: repeat(6, 3em);
+  grid-template-columns: repeat(5, 7vmin);
+  grid-template-rows: repeat(6, 7vmin);
   flex-grow: 1;
   gap: 0.3em;
-  margin-bottom: 6em;
 }
 
 .game-board .board .tile {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5em;
+  font-size: 3.5vmin;
   border: 0.05em solid hsl(244, 2%, 23%);
   text-transform: uppercase;
   transition: transform 250ms linear;
@@ -213,7 +226,6 @@ button {
   border-radius: 0.25em;
   padding: 0.75em;
   margin-bottom: 0.8em;
-  pointer-events: none;
   font-size: 0.9em;
   opacity: 1;
   transition: opacity 200ms linear;
@@ -221,6 +233,55 @@ button {
 
 .alert-container .alert.hide {
   opacity: 0;
+}
+
+@media (orientation: portrait) {
+  .game-board .board {
+    grid-template-columns: repeat(5, 8vmin);
+    grid-template-rows: repeat(6, 8vmin);
+    gap: 0.6vmin;
+  }
+
+  .game-board .keyboard {
+    font-size: 2vmin;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-section {
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 4vh;
+    position: relative;
+  }
+
+  .score-board {
+    font-size: 0.6em;
+    left: 10vw;
+  }
+
+  .game-board {
+    gap: 0;
+    margin-top: 5vh;
+  }
+
+  .game-board .board {
+    grid-template-columns: repeat(5, 13vmin);
+    grid-template-rows: repeat(6, 13vmin);
+    gap: 1.2vmin;
+  }
+
+  .game-board .keyboard {
+    font-size: 2.7vmin;
+  }
+
+  .game-board .board .tile {
+    font-size: 5vmin;
+  }
+
+  .top-section button {
+    right: 10vw;
+  }
 }
 
 @keyframes shake {
