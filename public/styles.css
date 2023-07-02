@@ -279,8 +279,7 @@ button {
   }
 
   .game-board .keyboard {
-    font-size: 2.7vmin;
-    gap: 0.3em;
+    font-size: 2.9vmin;
   }
 
   .game-board .board .tile {
