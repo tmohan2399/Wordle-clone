@@ -90,10 +90,15 @@ header {
   z-index: 2;
 }
 
+.top-section button.scale {
+  animation: scale 200ms;
+}
+
 button {
   color: inherit;
   border: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .top-section {
@@ -323,5 +328,11 @@ button {
   }
   100% {
     transform: 0;
+  }
+}
+
+@keyframes scale {
+  50% {
+    scale: 0.9;
   }
 }

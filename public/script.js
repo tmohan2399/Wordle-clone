@@ -14823,15 +14823,13 @@ for (let i = 0; i < 5 * 6; i++) {
 }
 
 function startInteration() {
-  document.addEventListener("keydown", handleKeydown);
-  document.addEventListener("click", handleClick);
+  document.onkeydown = handleKeydown;
+  document.onclick = handleClick;
   restartButton.onclick = restartGame;
 }
 
 function stopInteration() {
-  document.removeEventListener("keydown", handleKeydown);
-  document.removeEventListener("click", handleClick);
-  restartButton.onclick = null;
+  document.onkeydown = document.onclick = restartButton.onclick = null;
 }
 
 function handleKeydown(e) {
@@ -14842,9 +14840,8 @@ function handleKeydown(e) {
 
 function handleClick(e) {
   const key = e.target.dataset.key;
-  console.log(key);
-  if (!key) return;
-  if (key.match(/^[a-z]$/i)) enterLetter(key.toLowerCase());
+
+  if (key?.match(/^[a-z]$/i)) enterLetter(key.toLowerCase());
   if (key === "Backspace") deleteLetter();
   if (key === "Enter") submitGuess();
 }
@@ -14990,7 +14987,7 @@ function tileColors(activeTiles) {
   return guessLetterColors;
 }
 
-function restartGame() {
+async function restartGame() {
   gameBoard
     .querySelectorAll(".tile")
     .forEach(
@@ -15012,6 +15009,13 @@ function restartGame() {
   startInteration();
 
   while (alertContainer.hasChildNodes()) alertContainer.firstChild.remove();
+
+  restartButton.classList.add("scale");
+  restartButton.addEventListener(
+    "animationend",
+    () => restartButton.classList.remove("scale"),
+    { once: true }
+  );
 
   targetWord = targetWords[Math.floor(Math.random() * targetWords.length)];
 }
